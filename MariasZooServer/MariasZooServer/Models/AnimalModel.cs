@@ -58,7 +58,8 @@ namespace MariasZooServer.Models
             {
                 connection.Open();
 
-                MySqlCommand command = new MySqlCommand("select * from imagecontainers", connection);
+                MySqlCommand command = new MySqlCommand("select * from imagecontainers where date > @compareDate", connection);
+                command.Parameters.AddWithValue("@compareDate", date);
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -79,23 +80,19 @@ namespace MariasZooServer.Models
         {
             bool isNewerImageAvailable = false;
 
-            /*using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
 
-                MySqlCommand command = new MySqlCommand("select * from imagecontainers", connection);
+                MySqlCommand command = new MySqlCommand("select count(*) from imagecontainers where date > @compareDate", connection);
+                command.Parameters.AddWithValue("@compareDate", date);
 
-                using (var reader = command.ExecuteReader())
+                // This counts the number of returned rows of the command
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
                 {
-                    while (reader.Read())
-                    {
-                        imageContainerList.Add(new ImageContainer
-                        {
-                            Date = DateTime.Parse(reader["date"].ToString())
-                        });
-                    }
+                    isNewerImageAvailable = true;
                 }
-            }*/
+            }
 
             return isNewerImageAvailable;
         }

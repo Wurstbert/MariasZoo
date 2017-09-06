@@ -4,23 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MariasZooServer.Models;
+using System.Globalization;
 
 namespace MariasZooServer.Controllers
 {
     [Route("api/[controller]")]
     public class DateController : Controller
     {
-        // GET api/date/2017-9-6
+        // GET api/date/2017-09-06-14-00
         [HttpGet("{dateString}")]
         public bool IsNewerImageAvailable(string dateString)
         {
-            DateTime date; 
-            if (DateTime.TryParse(dateString, out date))
+            try
             {
+                DateTime date = DateTime.ParseExact(dateString, "yyyy-MM-dd-HH-mm", CultureInfo.InvariantCulture);
+
                 return AnimalModel.Instance.IsNewerImageAvailable(date);
             }
-
-            return false;
+            catch
+            {
+                return false;
+            }
         }
 
         /*
