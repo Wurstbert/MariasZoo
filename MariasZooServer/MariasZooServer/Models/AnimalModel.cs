@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MariasZooServer.BusinessObjects;
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace MariasZooServer.Models
 {
@@ -18,9 +20,19 @@ namespace MariasZooServer.Models
 
         private static object instanceLock = new object();
 
+        private string connectionString;
+
         private AnimalModel()
         {
-            ;
+
+            MySqlConnectionStringBuilder connectionStringBuilder = new MySqlConnectionStringBuilder();
+            connectionStringBuilder.Server = "127.0.0.1";
+            connectionStringBuilder.UserID = "root";
+            connectionStringBuilder.Password = "123";
+            connectionStringBuilder.Database = "mariaszoo";
+            connectionStringBuilder.SslMode = MySqlSslMode.None;
+
+            this.connectionString = connectionStringBuilder.ToString();
         }
 
         public static AnimalModel Instance
@@ -40,12 +52,52 @@ namespace MariasZooServer.Models
 
         public IEnumerable<ImageContainer> GetNewerImagesThan(DateTime date)
         {
-            return this.testImageList;
+            List<ImageContainer> imageContainerList = new List<ImageContainer>();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                MySqlCommand command = new MySqlCommand("select * from imagecontainers", connection);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        imageContainerList.Add(new ImageContainer
+                        {
+                            Date = DateTime.Parse(reader["date"].ToString())
+                        });
+                    }
+                }
+            }
+
+            return imageContainerList;
         }
 
         public bool IsNewerImageAvailable(DateTime date)
         {
-            return date < new DateTime(793, 6, 8);
+            bool isNewerImageAvailable = false;
+
+            /*using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                MySqlCommand command = new MySqlCommand("select * from imagecontainers", connection);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        imageContainerList.Add(new ImageContainer
+                        {
+                            Date = DateTime.Parse(reader["date"].ToString())
+                        });
+                    }
+                }
+            }*/
+
+            return isNewerImageAvailable;
         }
     }
 }
