@@ -10,16 +10,16 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchBrowser": false,
+      "launchUrl": "api/date/2017-11-6",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "MariasZooServer": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchBrowser": false,
+      "launchUrl": "api/date",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
