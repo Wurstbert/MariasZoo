@@ -12,11 +12,11 @@ namespace MariasZooServer.Models
     {
         private static volatile AnimalModel instance;
 
-        private List<ImageContainer> testImageList = new List<ImageContainer>()
+        /*private List<ImageContainer> testImageList = new List<ImageContainer>()
         {
             new ImageContainer() {Date = DateTime.Now, Image = new ImageSharp.Image(@"C:\Zufaelliges\AverageDayProgrammer.png")},
             new ImageContainer() {Date = new DateTime(1066, 5, 5), Image = new ImageSharp.Image(@"C:\Zufaelliges\hosen.jpg")}
-        };
+        };*/
 
         private static object instanceLock = new object();
 
