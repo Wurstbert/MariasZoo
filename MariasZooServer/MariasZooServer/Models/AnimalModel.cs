@@ -91,6 +91,7 @@ namespace MariasZooServer.Models
                 if (Convert.ToInt32(command.ExecuteScalar()) > 0)
                 {
                     isNewerImageAvailable = true;
+
                 }
             }
 
