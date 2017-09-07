@@ -19,7 +19,7 @@
     "MariasZooServer": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/date",
+      "launchUrl": "api/date/2016-11-06-12-45",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

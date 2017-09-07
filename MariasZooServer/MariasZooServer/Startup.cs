@@ -34,6 +34,7 @@ namespace MariasZooServer
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
