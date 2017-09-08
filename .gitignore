@@ -2,6 +2,10 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+# User specifics
+*.suo
+*.user
+*.sln.docstates
 .vs/
 [Dd]ebug/
 [Dd]ebugPublic/

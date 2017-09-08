@@ -4,8 +4,8 @@
              xmlns:local="clr-namespace:MariasZooClient"
              x:Class="MariasZooClient.MainPage">
 
-	<Label Text="Huhu, Maria!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <StackLayout Spacing="10" VerticalOptions="Center">
+        <Button Text="Los!" BackgroundColor="Green" Font="20" Clicked="GoButtonClicked" />
+    </StackLayout>
 
 </ContentPage>

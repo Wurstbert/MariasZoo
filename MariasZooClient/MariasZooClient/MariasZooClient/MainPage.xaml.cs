@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MariasZooClient.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace MariasZooClient
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void GoButtonClicked(object sender, EventArgs e)
+        {
+            this.Navigation.PushModalAsync(new ImageDisplayPage());
         }
     }
 }

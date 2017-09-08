@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MariasZooClient.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace MariasZooClient
         {
             InitializeComponent();
 
-            MainPage = new MariasZooClient.MainPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
