@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using MariasZooServer.BusinessObjects;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using System.Net;
+using System.IO;
 
 namespace MariasZooServer.Models
 {
@@ -22,9 +24,10 @@ namespace MariasZooServer.Models
 
         private string connectionString;
 
+        private string baseImagesUrl;
+
         private AnimalModel()
         {
-
             MySqlConnectionStringBuilder connectionStringBuilder = new MySqlConnectionStringBuilder();
             connectionStringBuilder.Server = "127.0.0.1";
             connectionStringBuilder.UserID = "root";
@@ -33,6 +36,8 @@ namespace MariasZooServer.Models
             connectionStringBuilder.SslMode = MySqlSslMode.None;
 
             this.connectionString = connectionStringBuilder.ToString();
+
+            this.baseImagesUrl = "http://" + GetPublicIPAddress() + ":25184/images/";
         }
 
         public static AnimalModel Instance
@@ -48,6 +53,23 @@ namespace MariasZooServer.Models
                 }
                 return instance;
             }
+        }
+
+        static string GetPublicIPAddress()
+        {
+            String address = "";
+            WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
+            using (WebResponse response = request.GetResponse())
+            using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+            {
+                address = stream.ReadToEnd();
+            }
+
+            int first = address.IndexOf("Address: ") + 9;
+            int last = address.LastIndexOf("</body>");
+            address = address.Substring(first, last - first);
+
+            return address;
         }
 
         public IEnumerable<ImageContainer> GetNewerImagesThan(DateTime date)
@@ -67,7 +89,9 @@ namespace MariasZooServer.Models
                     {
                         imageContainerList.Add(new ImageContainer
                         {
-                            Date = DateTime.Parse(reader["date"].ToString())
+                            Date = DateTime.Parse(reader["date"].ToString()),
+                            SourceUrl = this.baseImagesUrl + reader["filename"].ToString(),
+                            Title = reader["title"].ToString()
                         });
                     }
                 }

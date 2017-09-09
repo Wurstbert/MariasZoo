@@ -8,7 +8,8 @@ namespace MariasZooServer.BusinessObjects
 {
     public class ImageContainer
     {
-        public Image Image { get; set; }
+        public string SourceUrl { get; set; }
         public DateTime Date { get; set; }
+        public string Title { get; set; }
     }
 }

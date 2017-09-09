@@ -10,7 +10,7 @@
                         <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                             <Image Aspect="AspectFit" Source="{Binding SourceUrl}" />
                             <Label Text="{Binding Title}"
-                                TextColor="#f35e20" />
+                                TextColor="#f35e22" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
